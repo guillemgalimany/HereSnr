@@ -17,16 +17,17 @@ void ofApp::setup(){
     TCP.setup(8081);
     
     
-    Cube tempCube1(1,4,1);
+    Cube tempCube1(1,1,1);
     cubes.push_back(tempCube1);
-    Cube tempCube2(2,1,2);
-    cubes.push_back(tempCube2);
-    Cube tempCube3(3,2,3);
-    cubes.push_back(tempCube3);
-    Cube tempCube4(4,3,4);
-    cubes.push_back(tempCube4);
-    Cube tempCube5(5,4,1);
-    cubes.push_back(tempCube5);
+//    Cube tempCube2(2,1,2);
+//    cubes.push_back(tempCube2);
+//    Cube tempCube3(3,2,3);
+//    cubes.push_back(tempCube3);
+//    Cube tempCube4(4,3,4);
+//    cubes.push_back(tempCube4);
+//    Cube tempCube5(5,4,1);
+//    cubes.push_back(tempCube5);
+
 
 
 }
@@ -42,7 +43,7 @@ void ofApp::update(){
     
     //--------------------------------------------------------------
 
-    cout << ofGetElapsedTimeMillis() - requestDataTimer << endl;
+    //cout << ofGetElapsedTimeMillis() - requestDataTimer << endl;
 
     
     if (ofGetElapsedTimeMillis() - requestDataTimer > 5000)

@@ -35,7 +35,7 @@ void Cube::update(){
 
 void Cube::setIntensityLevel(int intensityLevel_){
 
-    intensityLevel = intensityLevel_;
+    //intensityLevel = intensityLevel_;
     
     //ofLog() << id << " - " << intensityLevel;
     

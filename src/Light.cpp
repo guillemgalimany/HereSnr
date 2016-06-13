@@ -80,7 +80,7 @@ void Light::initialize(){
     
     
     
-    for (int id = 0; id < maxCubes+1; id++)
+    for (int id = 1; id < maxCubes+1; id++)
     {
         vector<int> parsToUseIndex = parCubeAssign [id-1];
 
@@ -279,7 +279,7 @@ void Light::fade(int parId, ofColor newColor, float time)
     
 }
 
-void Light::lightTheCube(int id, ofColor targetColor, float amplitude)
+void Light::lightTheCube(int id, ofColor targetColor, int swingIntensity)
 {
     
     vector<int> parsToUseIndex = parCubeAssign [id-1];
@@ -296,7 +296,18 @@ void Light::lightTheCube(int id, ofColor targetColor, float amplitude)
 //        
 //        pars[parsToUseIndex[i]].triggerSinusoidalMove(50, 1);
         
-        pars[parsToUseIndex[i]].triggerChangeCubeColor(ofColor(0,0,55+200*(amplitude/6)),30, 0.5);
+        int amplitude = 30 ;
+        
+        float colorIntensity = (amplitude + 10) + ( (255 - amplitude) * (swingIntensity / 6) );
+        
+        ofLog() << "colorIntensity" << " - " << colorIntensity;
+
+        
+        ofColor myColor = ofColor(200,0,0);
+        
+        myColor.setBrightness(colorIntensity);
+        
+        pars[parsToUseIndex[i]].triggerChangeCubeColor(myColor, amplitude, 5);
     
         
     }

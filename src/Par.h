@@ -76,11 +76,11 @@ public:
     float myBrightness;
     ofColor cubeNewColor;
     float amplitude;
-    float frequency;
+    float period = 2;
     void sinusoidalMove();
     void triggerSinusoidalMove(float amplitude, float frequency);
     
-    void triggerChangeCubeColor(ofColor newColor_,float amplitude_, float frequency_);
+    void triggerChangeCubeColor(ofColor newColor_,float amplitude_, float period_);
 
     void changeCubeColor();
     float cubeTime;

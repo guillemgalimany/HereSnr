@@ -41,8 +41,8 @@ public:
     
     
     // PARS AND CUBES
-    int maxPar = 10;
-    int maxCubes = 5;
+    int maxPar = 4;
+    int maxCubes = 1;
     int parXcube;
     vector<vector<int>> parCubeAssign;
   
@@ -70,7 +70,7 @@ public:
     
     void update();
     
-    void lightTheCube(int id, ofColor targetColor, float amplitude);
+    void lightTheCube(int id, ofColor targetColor, int swingIntensity);
     
     
     long map(long x, long in_min, long in_max, long out_min, long out_max)
