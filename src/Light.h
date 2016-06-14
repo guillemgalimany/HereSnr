@@ -45,6 +45,10 @@ public:
     int maxCubes = 1;
     int parXcube;
     vector<vector<int>> parCubeAssign;
+    
+    
+    // OSCILATION
+    int oscPeriod = 3;
   
     
     void initialize();

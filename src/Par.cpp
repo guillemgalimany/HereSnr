@@ -126,10 +126,9 @@ void Par::fadeColor()
     
     float timeInSeconds = ofMap(currentTime, float(timef) , float(timef + fadeTime*1000), 0, 1 );
     
-    //ofMap(<#float value#>, <#float inputMin#>, <#float inputMax#>, <#float outputMin#>, <#float outputMax#>)
-    
     float resta = currentTime - timef;
-    
+    ofLog() << "resta" << " - " << resta;
+
     //ofLog() << "timeInSeconds" << " - " << timeInSeconds;
     
     color.lerp(myNewColor, timeInSeconds);
@@ -138,9 +137,18 @@ void Par::fadeColor()
     {
         isFadeColor=false;
         
-        myBrightness = color.getBrightness();
+        float hue, saturation, brightness;
+        
+        color.getHsb( hue,  saturation,  brightness);
+
+        myBrightness = brightness;
+        myHue = hue;
+        mySaturation = saturation;
+
         
         isSinusoidal = true;
+        
+        startOscTime = ofGetElapsedTimeMillis()*0.001;
     }
 }
 
@@ -150,7 +158,6 @@ void Par::triggerSinusoidalMove(float amplitude_, float period_) //modula el col
     amplitude = amplitude_;
     period = period_;
     
-    myBrightness = color.getBrightness();
     
     isSinusoidal = true;
     
@@ -160,11 +167,14 @@ void Par::triggerSinusoidalMove(float amplitude_, float period_) //modula el col
 void Par::sinusoidalMove() //modula el color actual reduint-ne la intensitat i tornant-la a augmentar de forma sinusoidal
 {
     
-    float time = ofGetElapsedTimeMillis()*0.001;
+    float time = ofGetElapsedTimeMillis()*0.001 - startOscTime ;
     //float period = 2.5;
     float w = (2*3.14)/period;
     
-    color.setBrightness(myBrightness + (amplitude * sin(w*time)));
+    float newBrightness = myBrightness + (amplitude * sin(w*time));
+    
+    color.setHsb(myHue, mySaturation, newBrightness);
+    
     
     //color.setBrightness(200+ sin(ofGetElapsedTimeMillis()*0.001 + (0.78*id)) * 50);
     
@@ -177,27 +187,23 @@ void Par::triggerChangeCubeColor(ofColor newColor_,float amplitude_, float perio
     amplitude = amplitude_;
     period = period_;
     
-    cubeNewColor = newColor_;
+    //cubeNewColor = newColor_;
     
     //deixo de fer sinusoides
     isSinusoidal = false;
     
     //assigno el color al que em vull fadejar
-    myNewColor = cubeNewColor;
+    myNewColor = newColor_;;
     
     //guardo el moment en el que començo a canviar de color
     timef = ofGetElapsedTimeMillis();
     
     //temps que trigare a fadejar
-    fadeTime = 1;
+    fadeTime = 0.5;
     
     //entro al loop de fer fade
     isFadeColor = true;
     
-    //entro al loop de comprovar quan s'acaba el fade per començar a sinusoidar
-    //isChangeCubeColor = true;
-    
-    //triggerSinusoidalMove(amplitude,frequency);
     
 
 }

@@ -119,7 +119,7 @@ void Light::sendInfo(){
     
         try {
             
-            artnet.sendDmx("192.168.1.151",&packDMX[0], packDMX.size());
+            artnet.sendDmx("192.168.1.150",&packDMX[0], packDMX.size());
 
         }
         catch (...){
@@ -286,28 +286,20 @@ void Light::lightTheCube(int id, ofColor targetColor, int swingIntensity)
     
     for (int i = 0 ; i < parsToUseIndex.size();i++)
     {
-//        ofColor tempColor = ofColor(0,255,0);
-//        //
-//        tempColor.lerp(ofColor(0,0,255), lerpFactor);
-//        
-//        pars[parsToUseIndex[i]].triggerFadeColor(tempColor, 0.5);
-            
-//        pars[parsToUseIndex[i]].setColor(ofColor(0,0,255*(amplitude/6)));
-//        
-//        pars[parsToUseIndex[i]].triggerSinusoidalMove(50, 1);
         
-        int amplitude = 30 ;
+        int oscAmplitude = 30 ;
         
-        float colorIntensity = (amplitude + 10) + ( (255 - amplitude) * (swingIntensity / 6) );
+        int minIntensity = oscAmplitude + 10;
+        
+        float colorIntensity = minIntensity + ( ( (255 - oscAmplitude) - minIntensity ) * ( (float)swingIntensity * 0.17 ) );
         
         ofLog() << "colorIntensity" << " - " << colorIntensity;
-
         
-        ofColor myColor = ofColor(200,0,0);
+        ofColor myColor = ofColor(255,255,0);
         
         myColor.setBrightness(colorIntensity);
         
-        pars[parsToUseIndex[i]].triggerChangeCubeColor(myColor, amplitude, 5);
+        pars[parsToUseIndex[i]].triggerChangeCubeColor(myColor, oscAmplitude, oscPeriod);
     
         
     }

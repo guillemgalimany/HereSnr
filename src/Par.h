@@ -73,7 +73,12 @@ public:
     
     bool isSinusoidal = false;
     
+    float startOscTime;
+    
     float myBrightness;
+    float mySaturation;
+    float myHue;
+    
     ofColor cubeNewColor;
     float amplitude;
     float period = 2;

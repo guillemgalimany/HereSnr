@@ -11,24 +11,12 @@ void ofApp::setup(){
 
     ofHideCursor();
     
-    Light::getInstance().initialize();      // Els pars es posen tots a tope
-    //Light::getInstance().fadePars(1, 'O', '0', warmingTime, 3);
+    Light::getInstance().initialize();
     
     TCP.setup(8081);
     
-    
     Cube tempCube1(1,1,1);
     cubes.push_back(tempCube1);
-//    Cube tempCube2(2,1,2);
-//    cubes.push_back(tempCube2);
-//    Cube tempCube3(3,2,3);
-//    cubes.push_back(tempCube3);
-//    Cube tempCube4(4,3,4);
-//    cubes.push_back(tempCube4);
-//    Cube tempCube5(5,4,1);
-//    cubes.push_back(tempCube5);
-
-
 
 }
 
@@ -37,73 +25,6 @@ void ofApp::update(){
 
     // LIGHT
     Light::getInstance().getInfo();
-    
-    //ofColor myPrevColor = myTestColor;
-    
-    
-    //--------------------------------------------------------------
-
-    //cout << ofGetElapsedTimeMillis() - requestDataTimer << endl;
-
-    
-    if (ofGetElapsedTimeMillis() - requestDataTimer > 5000)
-    {
-        requestDataServer();
-        
-        requestDataTimer = ofGetElapsedTimeMillis();
-    
-    }
-    
-    
-//
-//    ofHttpResponse resp = ofLoadURL("http://here.alquimia.io/backend/api/measurements-last/?format=json");
-//    cout << resp.data << endl;
-//    
-//    //ofFile newFile(ofToDataPath("temp.txt")); //file doesn't exist yet
-//    
-////    ofFile file(ofToDataPath("fitxertemporal.txt"));
-////    file << resp.data;
-////    file.close();
-//
-//    
-//    string str = resp.data;
-//    ofBuffer msg(str.c_str(), str.length());
-//    ofBufferToFile("out.txt", msg);
-//    
-////    cout << resp.data << endl;
-//
-//    if (str != "[]")
-//    {
-//        result.open("out.txt");
-//        cout << result[0]["installationId"].asString() << endl;
-//        //cout << result.type() << endl;
-//        
-//        
-//        
-//        
-//        for(int i = 0; i < (int)result.type(); i++)
-//        {
-//            string intallationIdStr = result[i]["installationId"].asString();
-//            
-//            string swingIdStr =result[i]["swingId"].asString();
-//            
-//            std::string::size_type sz;   // alias of size_t
-//            
-//            int intallationId = std::stoi (intallationIdStr);
-//            
-//            int swingId = std::stoi (intallationIdStr,&sz);
-//
-//            int tempoValue = result[i]["tempoValue"].asInt();
-//            
-//            serverData[ intallationId ][ swingId ] = tempoValue;
-//        }
-//
-//    }
-    
-    //ss << "firstName          = " << result["firstName"].asString() << std::endl;
-
-    
-    
     
     //--------------------------------------------------------------
 
@@ -126,7 +47,7 @@ void ofApp::update(){
                 //std::cout <<"RECEIVED"<< endl;
 
                 
-                std::cout <<str<< endl;
+                //std::cout <<str<< endl;
 
                 std::vector<int> vect;
                 
@@ -168,29 +89,14 @@ void ofApp::update(){
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key)
 {
-    switch(key)
-    {
-        case 'f':
-            Light::getInstance().setParsColor(ofColor(255,0,0));
-            break;
-        case 'j':
-            Light::getInstance().setParsColor(ofColor(0,255,0));
 
-            break;
-    }
     
 }
 
 //--------------------------------------------------------------
 void ofApp::keyReleased(int key)
 {
-    switch(key)
-    {
-        case 'f':
-            break;
-        case 'j':
-            break;
-    }
+
     
 }
 
@@ -215,46 +121,7 @@ void ofApp::setIntensityCube()
 //--------------------------------------------------------------
 void ofApp::requestDataServer()
 {
-    
-    ofHttpResponse resp = ofLoadURL("http://here.alquimia.io/backend/api/measurements-last/?format=json");
-    cout << resp.data << endl;
-    
-    
-    string str = resp.data;
-    ofBuffer msg(str.c_str(), str.length());
-    ofBufferToFile("out.txt", msg);
-    
-    
-    if (str != "[]")
-    {
-        result.open("out.txt");
-        
-        int numMissatges = (int)result.type();
-        
-        for(int i = 0; i < numMissatges; i++)
-        {
-            string intallationIdStr = result[i]["installationId"].asString();
-            
-            string swingIdStr =result[i]["swingId"].asString();
-            
-            if (intallationIdStr != "" && swingIdStr != "")
-            {
-                
-                std::string::size_type sz;   // alias of size_t
-                
-                int intallationId = std::stoi (intallationIdStr);
-                
-                int swingId = std::stoi (swingIdStr,&sz);
-                
-                int tempoValue = result[i]["tempoValue"].asInt();
-                
-                serverData[ intallationId - 1 ][ swingId - 1 ] = tempoValue;
-                
-            }
-        }
-        
-    }
-    
+   
 
     
 }
